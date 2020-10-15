@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sample Captcha Jquery | FP Dev</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var iNumber;
+            function initCaptchaCode(){
+                $("#btnGetCaptcha").prop("disabled", true);
+                iNumber = Math.floor(Math.random() * 10000);
+                $("#divGenerateRandomValues").css({ "background-image": 'url(captcha.png)', 'width': '100px', 'height': '50px' });
+                $("#divGenerateRandomValues").html("<input id='txtNewInput'></input>");
+                $("#txtNewInput").css({ 'background': 'transparent', 'font-family': 'Arial', 'font-style': 'bold', 'font-size': '40px' });
+                $("#txtNewInput").css({ 'width': '100px', 'border': 'none', 'color': 'black' });
+                $("#txtNewInput").val(iNumber);
+                $("#txtNewInput").prop('disabled', true);
+            }
+            
+            initCaptchaCode();
+
+            $("#btnGetCaptcha").click(function () {
+                if ($("#textInput").val() != iNumber) {
+                    alert("Wrong Input!");
+                }
+                else {
+                    alert("Correct Input!!!");
+                }
+            });
+            
+            
+            var wrongInput = function () {
+                if ($("#textInput").val() != iNumber) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+            $("#textInput").bind('input', function () {
+                $("#btnGetCaptcha").prop('disabled', wrongInput);
+            });
+
+            $("#refBtn").click(function () {
+                $('#textInput').val('');
+                initCaptchaCode();
+            });
+        });  
+    </script>
+</head>
+
+<body>
+    <div id="divGenerateRandomValues"></div>
+    <input type="text" id="textInput" />
+    <button id="btnGetCaptcha">Submit</button>
+
+    <button id="refBtn">Refresh</button>
+
+</body>
+
+</html>
